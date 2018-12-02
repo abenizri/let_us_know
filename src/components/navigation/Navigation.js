@@ -14,8 +14,8 @@ class Navigation extends Component {
         return (
             <div className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-                    <div className="container" style={{'max-width': '100%'}}>
-                        <img src={require('./../../images/letUsKnow.png')} width="150px" height="50px" style={{'border-radius': '6px'}} alt=""></img>
+                    <div className="container" style={{'maxWidth': '100%'}}>
+                        <img src={require('./../../images/letUsKnow.png')} width="150px" height="50px" style={{'borderRadius': '6px'}} alt=""></img>
                         <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                             &#9776;
                         </button>
@@ -26,12 +26,12 @@ class Navigation extends Component {
                                 <li className="nav-item"><NavLink onClick={this.handleClick} className="nav-link" to="/Dashboards">Dashboards</NavLink></li>
                             </ul>
                             <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
-                                <li className="nav-item order-2 order-md-1"><a href="#" className="nav-link" title="settings"><i className="fa fa-cog fa-fw fa-lg"></i></a></li>
+                                <li className="nav-item order-2 order-md-1"></li>
                                 <li className="dropdown order-1">
                                     <button type="button" id="dropdownMenu1" data-toggle="dropdown" className="btn btn-outline-secondary dropdown-toggle">Login <span className="caret"></span></button>
                                     <ul className="dropdown-menu dropdown-menu-right mt-2">
                                     <li className="px-3 py-2">
-                                        <form className="form" role="form">
+                                        <form className="form">
                                                 <div className="form-group">
                                                     <input id="emailInput" placeholder="Email" className="form-control form-control-sm" type="text" required=""/>
                                                 </div>
@@ -42,7 +42,7 @@ class Navigation extends Component {
                                                     <button type="submit" className="btn btn-primary btn-block">Login</button>
                                                 </div>
                                                 <div className="form-group text-center">
-                                                    <small><a href="#" data-toggle="modal" data-target="#modalPassword">Forgot password?</a></small>
+                                                    <small><button data-toggle="modal" data-target="#modalPassword">Forgot password?</button></small>
                                                 </div>
                                             </form>
                                         </li>

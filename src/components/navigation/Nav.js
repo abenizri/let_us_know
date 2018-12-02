@@ -15,9 +15,9 @@ class Nav extends Component {
             <React.Fragment>
       < Navigation />
        <Switch>
-         <Route className="" path="/"  component={Home} exact/>
-         <Route path="/Configuration"  component={Configuration} />
-         <Route path="/Dashboards"  component={Dashboards} />
+         <Route className="" path="/" component={Home} exact/>
+         <Route path="/Configuration" component={Configuration} />
+         <Route path="/Dashboards" component={Dashboards} />
          <Route component={Error} />
        </Switch>
        </React.Fragment>
