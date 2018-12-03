@@ -12,7 +12,7 @@ class Navigation extends Component {
 
     render() {
         return (
-            <div className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top" style={{"zIndex" : "1"}}>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
                     <div className="container" style={{'maxWidth': '100%'}}>
                         <img src={require('./../../images/letUsKnow.png')} width="150px" height="50px" style={{'borderRadius': '6px'}} alt=""></img>
