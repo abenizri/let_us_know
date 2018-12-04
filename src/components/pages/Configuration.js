@@ -15,10 +15,16 @@ class Configuration extends React.Component {
 
   componentDidMount() {
     this._runRequest()
+
+    let self = this
+    $('#refresh').click(function(e){
+      self._runRequest()
+    })
   }
 
   _runRequest(){
      const domain = $('location').attr('host') || 'localhost'
+     let self = this
       $.ajax({
          url: `http://localhost:3000/get/${domain}`,
          type: "GET",
@@ -26,8 +32,10 @@ class Configuration extends React.Component {
          ContentType: 'application/json',
          success: function(data) {
            this.setState({ data: data });
+           console.log('finished getting results');
          }.bind(this),
          error: function(jqXHR) {
+            self.setState({ data: [] });
            console.log(jqXHR);
          }
       })
@@ -38,14 +46,14 @@ class Configuration extends React.Component {
      $('#table tbody').prepend(`<tr id="headers">
           <th style="display: none" class="text-center">#</th>
           <th class="text-center">Category</th>
-          <th class="text-center">Element ID/Name</th>
+          <th class="text-center">Element Id</th>
           <th class="text-center">Feature Name</th>
           <th class="text-center">Users</th>
           <th class="text-center">Total</th>
           <th class="text-center">Usage</th>
           <th class="text-center">Enable Campaign</th>
           <th class="text-center">Recipients</th>
-          <th class="text-center">Frequency</th>
+          <th class="text-center">Feedback Form</th>
           <th width="200px" class="text-center">Duration</th>
           <th class="text-center">Status</th>
           <th class="text-center">Remove</th>
@@ -57,15 +65,14 @@ class Configuration extends React.Component {
       var $EXPORT = $('#export');
       var self = this
 
-      $('#refresh').click(function(e){
-        self._runRequest()
-      })
+
 
       $('#save').click(function(e) {
         e.stopPropagation()
+        const domain = $('location').attr('host') || 'localhost'
         let tableToJson = Utils.tableToJson('#table tr:not([id="headers"])')
-        let oldState = Utils.jsonToDataObject(self.state.data)
-        let newState = Utils.jsonToDataObject(tableToJson)
+        let oldState = Utils.jsonToDataObject(self.state.data, domain)        
+        let newState = Utils.jsonToDataObject(tableToJson, domain)
         let data = Utils.itemToModify(newState, oldState)
 
         $.ajax({
@@ -75,7 +82,7 @@ class Configuration extends React.Component {
            data: { data },
            ContentType: 'application/json',
            success: function(data) {
-             console.log('we made it');
+             console.log('Saved');
            },
            error: function(jqXHR) {
              console.log(jqXHR);
@@ -165,7 +172,7 @@ class Configuration extends React.Component {
                return (
                   <tr key = {key}>
                       <td style={{"display": "none"}}>{item.selector}</td>
-                      <td>{'dashboard' ||  item.category}</td>
+                      <td>{item.category}</td>
                       <td>{item.elementId}</td>
                       <td className="pt-3-half" contenteditable="true">{item.featureName}</td>
                       <td>{item.users}</td>
@@ -187,10 +194,8 @@ class Configuration extends React.Component {
                       </td>
                       <td className="pt-3-half" contenteditable="true">
                         <select style={{outline: 'none'}}>
-                          <option selected={item.frequency === 'month' ? true : false } value="month"> Month </option>
-                          <option selected={item.frequency === 'quarter' ? true : false } value="quarter"> Quarter </option>
-                          <option selected={item.frequency === 'half' ? true : false } value="half"> 6 Months </option>
-                          <option selected={item.frequency === 'year' ? true : false }  value="year"> Year </option>
+                          <option selected={item.feedbackForm === 'default' ? true : false } value="default"> Default </option>
+                          <option selected={item.feedbackForm === 'nps' ? true : false } value="nps"> NPS </option>
                         </select>
                       </td>
                       <td>

@@ -26,15 +26,19 @@ exports.tableToJson = function(tableSelector) {
   return myRows
 }
 
- exports.jsonToDataObject = function(jsonArray){
+ exports.jsonToDataObject = function(jsonArray, domain){
   let newArray = []
   jsonArray.map(function(item, key) {
     let obj = {
       selector: item.selector,
-      featureName: item.info,
+      domain,
+      category: item.category,
+      featureName: item.featureName,
+      elementId: item.elementId,
       usage: item.usage,
       enableCampaign: item.enableCampaign,
       recipients: item.recipients,
+      feedbackForm: item.feedbackForm,
       durationStart: item.durationStart,
       durationEnd: item.durationEnd,
       status: item.status
@@ -47,8 +51,10 @@ exports.tableToJson = function(tableSelector) {
 exports.itemToModify = function(newState, oldState){
   var data = []
   for (let item of oldState) {
-      var element = newState.find( x => x.selector === item.selector )
+      var element = newState.find( x => x.selector === item.selector && x.category === item.category)
       if(element) {
+        if (item.durationStart === null)  item.durationStart =  element.durationStart
+        if (item.durationEnd === null)  item.durationEnd =  element.durationEnd
         if (JSON.stringify(element) === JSON.stringify(item)) {
         } else {
           element.status = 'active'

@@ -20,12 +20,10 @@ export default class DataPick extends React.Component {
 
   handleChangeEnd(endDate) {
     this.setState({startDate: this.state.startDate, endDate});
-    console.log(endDate);
   }
 
   handleChangeStart(startDate) {
     this.setState({startDate, endDate: startDate});
-    console.log(startDate);
   }
 
   render () {
@@ -37,6 +35,7 @@ export default class DataPick extends React.Component {
             startDate={this.state.startDate}
             endDate={this.state.endDate}
             onChange={this.handleChangeStart}
+            className='calander'
         />
         -
         <DatePicker
@@ -45,6 +44,7 @@ export default class DataPick extends React.Component {
           startDate={this.state.startDate}
           endDate={this.state.endDate}
           onChange={this.handleChangeEnd}
+          className='calander'
           />
       </div>)
   }

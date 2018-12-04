@@ -12,7 +12,7 @@ class Navigation extends Component {
 
     render() {
         return (
-            <div className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top" style={{"zIndex" : "1"}}>
+            <div className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top" style={{'zIndex': '1'}}>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
                     <div className="container" style={{'maxWidth': '100%'}}>
                         <img src={require('./../../images/letUsKnow.png')} width="150px" height="50px" style={{'borderRadius': '6px'}} alt=""></img>
@@ -22,7 +22,17 @@ class Navigation extends Component {
                         <div className="collapse navbar-collapse" id="exCollapsingNavbar">
                             <ul className="nav navbar-nav">
                                 <li className="nav-item"><NavLink onClick={this.handleClick} className="nav-link" to="/" exact>Home</NavLink></li>
-                                <li className="nav-item"><NavLink onClick={this.handleClick} className="nav-link" to="/Configuration">Configuration</NavLink></li>
+                                <li className="nav-item dropdown">
+                                 <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                     Interact
+                                   </a>
+                                   <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                      <a className="dropdown-item"><NavLink style={{color: 'black'}} onClick={this.handleClick} className="nav-link" to="/Features">Features</NavLink></a>
+                                      <a className="dropdown-item"><NavLink style={{color: 'black'}} onClick={this.handleClick} className="nav-link" to="/Funnels">Funnels</NavLink></a>
+                                      <div className="dropdown-divider"></div>
+                                        <a className="dropdown-item"><NavLink style={{color: 'black'}} onClick={this.handleClick} className="nav-link" to="/Campaigns">Campaigns</NavLink></a>
+                                   </div>
+                               </li>
                                 <li className="nav-item"><NavLink onClick={this.handleClick} className="nav-link" to="/Dashboards">Dashboards</NavLink></li>
                             </ul>
                             <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
