@@ -45,11 +45,11 @@ class Configuration extends React.Component {
      if (this.first) {
      $('#table tbody').prepend(`<tr id="headers">
           <th style="display: none" class="text-center">#</th>
-          <th class="text-center">Category</th>
+          <th class="text-center">Page</th>
           <th class="text-center">Element Id</th>
           <th class="text-center">Feature Name</th>
           <th class="text-center">Users</th>
-          <th class="text-center">Total</th>
+          <th class="text-center">Total Clicks</th>
           <th class="text-center">Usage</th>
           <th class="text-center">Enable Campaign</th>
           <th class="text-center">Recipients</th>
@@ -65,13 +65,11 @@ class Configuration extends React.Component {
       var $EXPORT = $('#export');
       var self = this
 
-
-
       $('#save').click(function(e) {
         e.stopPropagation()
         const domain = $('location').attr('host') || 'localhost'
         let tableToJson = Utils.tableToJson('#table tr:not([id="headers"])')
-        let oldState = Utils.jsonToDataObject(self.state.data, domain)        
+        let oldState = Utils.jsonToDataObject(self.state.data, domain)
         let newState = Utils.jsonToDataObject(tableToJson, domain)
         let data = Utils.itemToModify(newState, oldState)
 
@@ -143,8 +141,8 @@ class Configuration extends React.Component {
   render() {
     return (
       <div style={{'marginTop': '100px'}}>
-      <div style={{'marginLeft': '125px'}}>
-        <table style={{'borderSize': '1px', 'borderStyle': 'solid'}}>
+      <div>
+        <table align= 'center' style={{'borderSize': '1px', 'borderStyle': 'solid'}}>
         <tbody>
         <tr>
           <th style={{'width': '250px', textAlign: 'center'}}> Total Features </th>
@@ -164,7 +162,7 @@ class Configuration extends React.Component {
       <div className="card" style={{ 'borderStyle': 'none'}}>
         <div className="card-body">
         <div classsname="card-header text-left" style={{height: '50px'}}>
-          <button id="refresh" width="30px" height="30px" style={{outline: 'none', 'borderStyle': 'none', 'float': 'right', 'backgroundColor': 'transparent'}} title="refresh"><img width="30px" height="30px"  alt="" src={require('./../../images/refresh_grey_192x192.png')} /></button>
+          <button id="refresh" width="30px" height="30px" style={{outline: 'none', 'float': 'right', 'backgroundColor': 'transparent'}} title="refresh"><img width="30px" height="30px"  alt="" src={require('./../../images/refresh_grey_192x192.png')} /></button>
         </div>
           <div id="table" className="table-editable" style={{'fontSize': '13px'}}>
             <table className="table table-bordered table-responsive-md table-striped text-center">
@@ -172,7 +170,7 @@ class Configuration extends React.Component {
                return (
                   <tr key = {key}>
                       <td style={{"display": "none"}}>{item.selector}</td>
-                      <td>{item.category}</td>
+                      <td>{item.page}</td>
                       <td>{item.elementId}</td>
                       <td className="pt-3-half" contenteditable="true">{item.featureName}</td>
                       <td>{item.users}</td>

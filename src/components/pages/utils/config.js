@@ -32,7 +32,7 @@ exports.tableToJson = function(tableSelector) {
     let obj = {
       selector: item.selector,
       domain,
-      category: item.category,
+      page: item.page,
       featureName: item.featureName,
       elementId: item.elementId,
       usage: item.usage,
@@ -51,14 +51,22 @@ exports.tableToJson = function(tableSelector) {
 exports.itemToModify = function(newState, oldState){
   var data = []
   for (let item of oldState) {
-      var element = newState.find( x => x.selector === item.selector && x.category === item.category)
+      var element = newState.find( x => x.selector === item.selector && x.page === item.page)
       if(element) {
-        if (item.durationStart === null)  item.durationStart =  element.durationStart
-        if (item.durationEnd === null)  item.durationEnd =  element.durationEnd
+        console.log();
         if (JSON.stringify(element) === JSON.stringify(item)) {
         } else {
-          element.status = 'active'
-          data.push(element)
+
+          if ( element.durationStart !== element.durationEnd ) {
+            if (item.durationStart === null)  item.durationStart = element.durationStart
+            if (item.durationEnd === null)  item.durationEnd =  element.durationEnd
+            if (element.enableCampaign === 'yes') {
+              element.status = 'active'
+            } else {
+              element.status = 'pending'
+            }
+            data.push(element)
+          }
         }
       } else {
           item.status = 'removed'
@@ -69,6 +77,7 @@ exports.itemToModify = function(newState, oldState){
 }
 
 function _normaliseJsonKey(key) {
+  if (key === 'Total Clicks') return 'total'
   if (key === '#') return 'selector'
   key = key.trim().replace(/(?:_| |\b)(\w)/g, function(str, p1) { return p1.toUpperCase()})
   key = key.charAt(0).toLowerCase() + key.slice(1)
