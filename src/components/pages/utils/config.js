@@ -52,15 +52,21 @@ exports.itemToModify = function(newState, oldState){
   var data = []
   for (let item of oldState) {
       var element = newState.find( x => x.selector === item.selector && x.page === item.page)
-      if(element) {
-        console.log();
-        if (JSON.stringify(element) === JSON.stringify(item)) {
-        } else {
+      var elementClone = Object.assign({}, element)
+      var elementItem = Object.assign({}, item)
 
+      delete elementClone.durationStart
+      delete elementClone.durationEnd
+
+      delete elementItem.durationStart
+      delete elementClone.durationEnd
+      if(element) {
+        if (JSON.stringify(elementClone) === JSON.stringify(elementItem)) {
+        } else {
           if ( element.durationStart !== element.durationEnd ) {
-            if (item.durationStart === null)  item.durationStart = element.durationStart
-            if (item.durationEnd === null)  item.durationEnd =  element.durationEnd
             if (element.enableCampaign === 'yes') {
+              item.durationStart = element.durationStart
+              item.durationEnd =  element.durationEnd
               element.status = 'active'
             } else {
               element.status = 'pending'
