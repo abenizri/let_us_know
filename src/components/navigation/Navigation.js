@@ -34,6 +34,8 @@ class Navigation extends Component {
                                    </div>
                                </li>
                                 <li className="nav-item"><NavLink onClick={this.handleClick} className="nav-link" to="/Dashboards">Dashboards</NavLink></li>
+                                <li className="nav-item"><NavLink onClick={this.handleClick} className="nav-link" to="/Feedbacks">Feadbacks</NavLink></li>
+
                             </ul>
                             <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
                                 <li className="nav-item order-2 order-md-1"></li>
